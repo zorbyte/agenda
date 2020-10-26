@@ -8,8 +8,6 @@ import (
 	"github.com/zorbyte/agenda/utils"
 )
 
-type Task 
-
 // AddTask adds a task to the db
 func AddTask(db *badger.DB) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
