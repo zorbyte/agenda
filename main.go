@@ -14,7 +14,7 @@ import (
 
 func main() {
 	log.SetPrefix("agenda ")
-	log.Println("Opening db @ ./test")
+	log.Println("Opening db @ ./db_data")
 
 	db, err := badger.Open(badger.DefaultOptions("./db_data"))
 	if err != nil {
