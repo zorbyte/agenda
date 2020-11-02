@@ -12,3 +12,16 @@ type RESTError struct {
 func SendRESTErr(c *fiber.Ctx, err RESTError) error {
 	return c.Status(int(err.Code)).JSON(err)
 }
+
+// GetTaskName gets the name of the task from the path segments.
+func GetTaskName(c *fiber.Ctx) (string, *RESTError) {
+	taskName := c.Params("name")
+	if taskName == "" {
+		return "", &RESTError{
+			Code: 400,
+			Msg:  "Field \"name\" was not supplied",
+		}
+	}
+
+	return taskName, nil
+}

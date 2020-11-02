@@ -12,9 +12,11 @@ import (
 	"github.com/markbates/pkger"
 )
 
+const dbDataLoc string = "./store"
+
 func main() {
 	log.SetPrefix("agenda ")
-	log.Println("Opening db @ ./db_data")
+	log.Println("Opening db @", dbDataLoc)
 
 	db, err := badger.Open(badger.DefaultOptions("./db_data"))
 	if err != nil {
@@ -25,9 +27,7 @@ func main() {
 
 	engine := html.NewFileSystem(pkger.Dir("/views"), ".html")
 
-	app := fiber.New(fiber.Config{
-		Views: engine,
-	})
+	app := fiber.New(fiber.Config{Views: engine})
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Render("index", fiber.Map{
@@ -35,5 +35,5 @@ func main() {
 		})
 	})
 
-	app.Listen("127.0.0.1:8080")
+	app.Listen(":8080")
 }
