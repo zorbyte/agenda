@@ -2,22 +2,22 @@ package utils
 
 import "github.com/gofiber/fiber/v2"
 
-// RESTError is an easy error to use that automatically uses JSON when processed.
-type RESTError struct {
+// RESTMsg is an easy to use msg or error to use that automatically uses JSON when processed.
+type RESTMsg struct {
 	Code uint16 `json:"code"`
 	Msg  string `json:"message"`
 }
 
-// SendRESTErr sends a RESTError to the client with the appropriate headers.
-func SendRESTErr(c *fiber.Ctx, err RESTError) error {
-	return c.Status(int(err.Code)).JSON(err)
+// SendRESTMsg sends a RESTMsg to the client with the appropriate headers.
+func SendRESTMsg(c *fiber.Ctx, msg RESTMsg) error {
+	return c.Status(int(msg.Code)).JSON(msg)
 }
 
 // GetTaskName gets the name of the task from the path segments.
-func GetTaskName(c *fiber.Ctx) (string, *RESTError) {
+func GetTaskName(c *fiber.Ctx) (string, *RESTMsg) {
 	taskName := c.Params("name")
 	if taskName == "" {
-		return "", &RESTError{
+		return "", &RESTMsg{
 			Code: 400,
 			Msg:  "Field \"name\" was not supplied",
 		}
